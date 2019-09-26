@@ -1,5 +1,4 @@
-"""
-    Nondeterministic Finite Automata (NFA) are machines that recognize 
+""" Nondeterministic Finite Automata (NFA) are machines that recognize 
     Regular Languages. They are defined as a 5-tuple:
     - A set of states Q 
     - A finite set of input symbols called the alphabet sigma
@@ -13,8 +12,7 @@
 
     1. r0 = q0
     2. ri+1 = delta(ri, ai+1), for i = 0, ..., n-1
-    3. rn is a member of F
-"""
+    3. rn is a member of F"""
 
 class NFA():
     def __init__(self, states : list, input_symbols : list, transition_function,
@@ -31,13 +29,25 @@ class NFA():
         # accept states F
         self.accept_states = accept_states
 
-     # returns true if the DFA accepts the string, false otherwise
-    def compute_on_string(self, input_ : str):
-        current_state = [self.initial_state]
+    """Returns a DFA that is equivalent to this NFA"""
+    def convert_to_dfa(self):
+        d_states = self.states.copy()
+        d_input_symbols = self.input_symbols.copy()
+        d_initial_state = self.initial_state.copy()
+        d_accept_states = []
 
-        for symbol in input_:
-            # TODO: compute transitions from every current state
-            current_states = self.transition_function[(current_state, symbol)]
-            # TODO: compute epsilon transitions
+        # add states reachable by one step of non-deterministic transitions
+        # without epsilon
+        for state, symbol in self.transition_function:
+            transitioned_states = transition_function[(state, symbol)].sort()
 
-        return current_state in self.accept_states
+            new_state = ''
+
+            for s in transitioned_states:
+                new_state += s
+            
+            if not new_state in d_states:
+                d_states.append(new_state)
+
+        # try transitioning on the new states
+        

@@ -31,7 +31,14 @@ class DFA():
         # accept states F
         self.accept_states = accept_states
 
-    # returns true if the DFA accepts the string, false otherwise
+    """ Compute input_ on the DFA
+
+        Arguments:
+        input_ -- the string to be used as input on the DFA
+
+        Returns:
+        True if the DFA accepts the input, False otherwise
+    """
     def compute_on_string(self, input_ : str):
         current_state = self.initial_state
 
