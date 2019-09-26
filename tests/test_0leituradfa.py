@@ -2,6 +2,8 @@ import json
 import logging
 
 from application.dfa import DFA
+from application.re import RE
+from application.rg import RG
 from application.serializer import Serializer
 
 # logger configuration for the serializer
@@ -12,6 +14,7 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger()
+
 
 """
     Function for easier creation of dfa between tests
@@ -34,22 +37,66 @@ def dfa_creation():
 
     return DFA(states, symbols, transition_function, initial_state, final_states)
 
-def test_computing_strings(test_strings):
+
+"""
+    Test computing strings on the automata defined on dfa_creation()
+"""
+def test_computing_strings():
     d = dfa_creation()
     
     assert d.compute_on_string('aaaba') == True
     assert d.compute_on_string('bbaabab') == True
     assert d.compute_on_string('aabbbb') == False
 
+
+"""
+    Test recording Deterministic Finite Automata using the Serializer class
+"""
 def test_recording_dfa():
     dfa = dfa_creation()
 
-    serializer = Serializer()
-    serializer.serialize(dfa, 'test_dfa')
+    s = Serializer()
+    s.serialize(dfa, 'test_dfa')
 
-    unpickled_dfa = serializer.deserialize('test_dfa')
+    unpickled = s.deserialize('test_dfa')
 
-    assert unpickled_dfa.transition_function == dfa.transition_function
+    assert unpickled.states == dfa.states
+    assert unpickled.input_symbols == dfa.input_symbols
+    assert unpickled.transition_function == dfa.transition_function
+    assert unpickled.initial_state == dfa.initial_state
+    assert unpickled.accept_states == dfa.accept_states
 
+"""
+    Test recording Regular Expressions using the Serializer class
+"""
+def test_recording_re():
+    re = RE('1(10)*')
 
+    s = Serializer()
+    s.serialize(re, 'test_re')
+
+    unpickled = s.deserialize('test_re')
+
+    assert unpickled.expression == re.expression
+
+"""
+    Test the recording of Regular Grammars using the Serializer class
+"""
+def test_recording_rg():
+    nonterminals = ['S', 'A', 'B']
+    terminals = ['a', 'b']
+    productions = {'S': ['Aa', 'a', 'Ba'], 'A': ['a', 'Ba'], 'B': ['b', 'Ab']}
+    start_symbol = 'S'
+
+    rg = RG(nonterminals, terminals, productions, start_symbol)
+
+    s = Serializer()
+    s.serialize(rg, 'test_rg')
+
+    unpickled = s.deserialize('test_rg')
+
+    assert unpickled.nonterminals == rg.nonterminals
+    assert unpickled.terminals == rg.terminals
+    assert unpickled.productions == rg.productions
+    assert unpickled.start_symbol == rg.start_symbol
 
