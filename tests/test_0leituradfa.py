@@ -1,10 +1,9 @@
-import json
-import logging
-
 from application.dfa import DFA
 from application.re import RE
 from application.rg import RG
 from application.serializer import Serializer
+
+import logging
 
 # logger configuration for the serializer
 logging.basicConfig(
@@ -15,10 +14,7 @@ logging.basicConfig(
 
 logger = logging.getLogger()
 
-
-"""
-    Function for easier creation of dfa between tests
-"""
+"""Function for easier creation of dfa between tests"""
 def dfa_creation():
     states = ['q0', 'q1', 'q2', 'q3']
     symbols = ['a', 'b']
@@ -37,21 +33,7 @@ def dfa_creation():
 
     return DFA(states, symbols, transition_function, initial_state, final_states)
 
-
-"""
-    Test computing strings on the automata defined on dfa_creation()
-"""
-def test_computing_strings():
-    d = dfa_creation()
-    
-    assert d.compute_on_string('aaaba') == True
-    assert d.compute_on_string('bbaabab') == True
-    assert d.compute_on_string('aabbbb') == False
-
-
-"""
-    Test recording Deterministic Finite Automata using the Serializer class
-"""
+"""Test recording Deterministic Finite Automata using the Serializer class"""
 def test_recording_dfa():
     dfa = dfa_creation()
 
@@ -66,9 +48,7 @@ def test_recording_dfa():
     assert unpickled.initial_state == dfa.initial_state
     assert unpickled.accept_states == dfa.accept_states
 
-"""
-    Test recording Regular Expressions using the Serializer class
-"""
+"""Test recording Regular Expressions using the Serializer class"""
 def test_recording_re():
     re = RE('1(10)*')
 
@@ -79,9 +59,7 @@ def test_recording_re():
 
     assert unpickled.expression == re.expression
 
-"""
-    Test the recording of Regular Grammars using the Serializer class
-"""
+"""Test recording Regular Grammars using the Serializer class"""
 def test_recording_rg():
     nonterminals = ['S', 'A', 'B']
     terminals = ['a', 'b']
@@ -100,3 +78,21 @@ def test_recording_rg():
     assert unpickled.productions == rg.productions
     assert unpickled.start_symbol == rg.start_symbol
 
+"""Tests the edition modes of the DFA class"""
+def test_editing_dfa():
+    # TODO implement
+    pass
+
+"""Tests the edition modes of the RG class"""
+def test_editing_rg():
+    # TODO implement
+    pass
+
+"""Tests the edition modes of the RE class"""
+def test_editing_re():
+    re = RE('1(10)*')
+
+    exp = re.expression
+    re.edit_expression('0(01)*')
+
+    assert re.expression != exp
