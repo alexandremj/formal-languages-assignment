@@ -1,7 +1,7 @@
 """ Definition of fixtures used throughout the tests of this app """
 
 from application.dfa import DFA
-from application.re import RE
+from application.regex import RE
 from application.rg import RG
 
 import pytest
@@ -35,3 +35,28 @@ def dfa_creation():
     final_states = ['q3']
 
     return DFA(states, symbols, transition_function, initial_state, final_states)
+
+"""Easier creation of RE between tests"""
+@pytest.fixture
+def re_creation():
+    return RE('1(10)*')
+
+"""Easier creation of RG between tests"""
+@pytest.fixture
+def rg_creation():
+    nonterminals = ['S', 'A', 'B']
+    terminals = ['a', 'b']
+    # it might be a good idea to change this grammar into a better example when
+    # convert_to_nfa is implemented
+    productions = {
+        'S' : {
+            'Aa', 'a', 'B',
+        }, 'A' : {
+            'a', 'Ba',
+        }, 'B' : {
+            'b',
+        },
+    }
+    start_symbol = 'S'
+
+    return RG(nonterminals, terminals, productions, start_symbol)   

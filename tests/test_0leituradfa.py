@@ -1,5 +1,5 @@
 from application.dfa import DFA
-from application.re import RE
+from application.regex import RE
 from application.rg import RG
 from application.serializer import Serializer
 
