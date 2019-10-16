@@ -29,6 +29,15 @@ class NFA():
         # accept states F
         self.accept_states = accept_states
 
+    def __str__(self):
+        return (f'NFA - '
+                f'States: {self.states} '
+                f'Input Symbols: {self.input_symbols}'
+                f'Transition Function: {self.transition_function}'
+                f'Initial State: {self.initial_state}'
+                f'Accept States: {self.accept_states}'
+                )
+
     """Returns a DFA that is equivalent to this NFA"""
     def convert_to_dfa(self):
         d_states = self.states.copy()
@@ -38,16 +47,20 @@ class NFA():
 
         # add states reachable by one step of non-deterministic transitions
         # without epsilon
-        for state, symbol in self.transition_function:
-            transitioned_states = transition_function[(state, symbol)].sort()
+        for state in self.states:
 
-            new_state = ''
+            for symbol in self.input_symbols:
+                # sort is needed to avoid overlap between concatenated states with
+                # different order
+                transitioned_states = transition_function[(state, symbol)].sort()
 
-            for s in transitioned_states:
-                new_state += s
-            
-            if not new_state in d_states:
-                d_states.append(new_state)
+                new_state = ''
+
+                for s in transitioned_states:
+                    new_state += s
+                
+                if not new_state in d_states:
+                    d_states.append(new_state)
 
         # try transitioning on the new states
         

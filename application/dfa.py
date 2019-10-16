@@ -30,6 +30,16 @@ class DFA():
 
         # accept states F
         self.accept_states = accept_states
+        print('DFA created')
+        print(self)
+
+    def __str__(self):
+        return (f'DFA - '
+                f'States: {self.states}, '
+                f'Input Symbols: {self.input_symbols}, '
+                f'Transition_Function: to be implemented, '
+                f'Initial State: {self.initial_state}, '
+                f'Accept States: {self.accept_states}; ')
 
     """ Compute input_ on the DFA
 

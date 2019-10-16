@@ -13,6 +13,14 @@ class RG():
         self.terminals = terminals
         self.productions = productions
         self.start_symbol = start_symbol
+
+    def __str__(self):
+        return (f'Regular Grammar - '
+                f'Nonterminals: {self.nonterminals}, '
+                f'Terminals: {self.terminals}, '
+                f'Productions: {self.productions}, '
+                f'start_symbol: {self.start_symbol} '
+                )
     
     # TODO
     def convert_to_nfa(self):
