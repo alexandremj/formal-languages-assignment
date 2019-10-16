@@ -15,8 +15,12 @@
     3. rn is a member of F"""
 
 class NFA():
-    def __init__(self, states : list, input_symbols : list, transition_function,
-        initial_state : str, accept_states : list):
+    def __init__(self,
+                states : list[str],
+                input_symbols : list[str],
+                transition_function : dict,
+                initial_state : str,
+                accept_states : list[str]):
         # Q set of states
         self.states = []
         # input symbols sigma

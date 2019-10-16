@@ -8,7 +8,11 @@
     - S in N is the start symbol"""
 
 class RG():
-    def __init__(self, nonterminals, terminals, productions, start_symbol):
+    def __init__(self,
+                nonterminals : list[str],
+                terminals : list[str],
+                productions,
+                start_symbol : str):
         self.nonterminals = nonterminals
         self.terminals = terminals
         self.productions = productions
