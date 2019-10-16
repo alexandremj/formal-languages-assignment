@@ -1,16 +1,19 @@
 import dfa
 import nfa
-import re
+import regex
 import rg
+import serializer
 
 structure_letters = ['D', 'E', 'N', 'R']
-command_list = ['c', 'h', 'q']
+loaded_structures = []
+command_list = ['b', 'c', 'h', 'l', 'q']
 
 def print_help():
     print("""
             Commands:
             c - create a new automaton/grammar/regex
             h - prints this help text
+            l - loads a structure
             q - exit
         """)
 
@@ -46,6 +49,7 @@ def create_new():
                         initial_state, accept_states)
 
         print(d)
+        loaded_structures.append(d)
         return d
 
     elif structure_type == 'E':
@@ -53,9 +57,10 @@ def create_new():
 
         expression = input('Insert the base expression: ')
 
-        r = re.RE(expression)
+        r = regex.RE(expression)
 
         print(r)
+        loaded_structures.append(r)
         return r
 
     elif strucuture_type == 'G':
@@ -69,6 +74,7 @@ def create_new():
         g = rg.RG(nonterminals, terminals, productions, start_symbol)
 
         print(g)
+        loaded_structures.append(g)
         return g
 
     elif structure_type == 'N':
@@ -84,7 +90,27 @@ def create_new():
                         initial_state, accept_states)
 
         print(n)
+        loaded_structures.append(n)
         return n
+
+# ToDo insert this into a buffer of currently loaded structures
+def load_structure():
+    serializer_instance = serializer.Serializer()
+
+    file_name = ''
+
+    while True:
+        file_name = input('Insert the pickle file name or (q)uit: ')
+
+        if file_name == 'q':
+            break
+        
+        try:
+            loaded_structures.append(
+                serializer_instance.deserialize(file_name)
+            )
+        except OSError: 
+            print('Error: could not open file.')
 
 def main():
     print('Formal Languages Assignment by Alexandre Muller Junior')
@@ -96,10 +122,15 @@ def main():
 
         if command not in command_list:
             print('Unknown command!')
+        elif command == 'b':
+            # ToDo make loaded_structures human-readable
+            print(loaded_structures)
         elif command == 'c':
             create_new()
         elif command == 'h':
             print_help()
+        elif command == 'l':
+            load_structure()
         elif command == 'q':
             print('Exiting project...')
             exit()
