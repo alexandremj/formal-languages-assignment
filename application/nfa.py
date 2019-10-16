@@ -14,13 +14,15 @@
     2. ri+1 = delta(ri, ai+1), for i = 0, ..., n-1
     3. rn is a member of F"""
 
+from typing import List
+
 class NFA():
     def __init__(self,
-                states : list[str],
-                input_symbols : list[str],
+                states : List[str],
+                input_symbols : List[str],
                 transition_function : dict,
                 initial_state : str,
-                accept_states : list[str]):
+                accept_states : List[str]):
         # Q set of states
         self.states = []
         # input symbols sigma
