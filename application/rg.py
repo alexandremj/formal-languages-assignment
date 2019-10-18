@@ -7,12 +7,10 @@
       where A is in N and a is in Sigma
     - S in N is the start symbol"""
 
-from typing import List
-
 class RG():
     def __init__(self,
-                nonterminals : List[str],
-                terminals : List[str],
+                nonterminals : set,
+                terminals : set,
                 productions,
                 start_symbol : str):
         self.nonterminals = nonterminals
