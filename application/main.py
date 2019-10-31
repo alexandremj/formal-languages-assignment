@@ -1,3 +1,5 @@
+import logging
+
 import dfa
 import nfa
 import regex
@@ -11,6 +13,7 @@ command_list = ['b', 'c', 'h', 'l', 'q']
 def print_help():
     print("""
             Commands:
+            b - read currently loaded structures
             c - create a new automaton/grammar/regex
             h - prints this help text
             l - loads a structure
@@ -113,6 +116,8 @@ def load_structure():
             print('Error: could not open file.')
 
 def main():
+    logging.basicConfig(level=logging.DEBUG)
+
     print('Formal Languages Assignment by Alexandre Muller Junior')
     print('This software is free. Refer to the license for more details')
 
