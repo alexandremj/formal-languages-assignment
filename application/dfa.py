@@ -25,9 +25,9 @@ class DFA():
                  accept_states: set):
 
         # Q set of states
-        self.states = []
+        self.states = {}
         # input symbols sigma
-        self.input_symbols = []
+        self.input_symbols = {}
         # transition function delta
         self.transition_function = transition_function
         # initial state
