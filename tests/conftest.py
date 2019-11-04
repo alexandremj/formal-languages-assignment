@@ -1,6 +1,7 @@
 """ Definition of fixtures used throughout the tests of this app """
 
 from application.dfa import DFA
+from application.nfa import NFA
 from application.regex import RE
 from application.rg import RG
 
@@ -16,11 +17,11 @@ logging.basicConfig(
 
 logger = logging.getLogger()
 
-"""Easier creation of dfa between tests"""
+"""Easier creation of DFA between tests"""
 @pytest.fixture
 def dfa_creation():
-    states = ['q0', 'q1', 'q2', 'q3']
-    symbols = ['a', 'b']
+    states = {'q0', 'q1', 'q2', 'q3'}
+    symbols = {'a', 'b'}
     transition_function = {
         ('q0', 'a'): 'q1',
         ('q0', 'b'): 'q0',
@@ -32,7 +33,7 @@ def dfa_creation():
         ('q3', 'b'): 'q3',
     }
     initial_state = 'q0'
-    final_states = ['q3']
+    final_states = {'q3'}
 
     return DFA(states, symbols, transition_function,
                initial_state, final_states)
@@ -51,17 +52,16 @@ def re_creation():
 
 @pytest.fixture
 def rg_creation():
-    nonterminals = ['S', 'A', 'B']
-    terminals = ['a', 'b']
-    # it might be a good idea to change this grammar into a better example when
-    # convert_to_nfa is implemented
+    nonterminals = {'S', 'A', 'B'}
+    terminals = {'a', 'b'}
+    # grammar used as an example of conversion from a RG to a DFA
     productions = {
         'S': {
-            'Aa', 'a', 'B',
+            'aA', 'bB', 'b',
         }, 'A': {
-            'a', 'Ba',
+            'aS',
         }, 'B': {
-            'b',
+            'bB', 'b'
         },
     }
     start_symbol = 'S'
