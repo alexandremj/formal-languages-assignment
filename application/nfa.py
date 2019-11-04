@@ -1,6 +1,6 @@
 """ Nondeterministic Finite Automata (NFA) are machines that recognize
     Regular Languages. They are defined as a 5-tuple:
-    - A set of states Q 
+    - A set of states Q
     - A finite set of input symbols called the alphabet sigma
     - A transition function delta : Q x sigma into the power set of Q
     - An initial state q0
@@ -34,37 +34,48 @@ class NFA():
         # accept states F
         self.accept_states = accept_states
 
+    def __eq__(self, other):
+        if (self.states == other.states and
+                self.input_symbols == other.input_symbols and
+                self.transition_function == other.transition_function and
+                self.initial_state == other.initial_state and
+                self.accept_states == other.accept_states):
+            return True
+        return False
+
     def __str__(self):
         return (f'NFA - '
                 f'States: {self.states} '
-                f'Input Symbols: {self.input_symbols}'
-                f'Transition Function: {self.transition_function}'
-                f'Initial State: {self.initial_state}'
-                f'Accept States: {self.accept_states}'
+                f'Input Symbols: {self.input_symbols} '
+                f'Transition Function: {self.transition_function} '
+                f'Initial State: {self.initial_state} '
+                f'Accept States: {self.accept_states} '
                 )
 
     """Returns a DFA that is equivalent to this NFA"""
     def convert_to_dfa(self):
-        d_states = self.states.copy()
-        d_input_symbols = self.input_symbols.copy()
-        d_initial_state = self.initial_state.copy()
-        d_accept_states = []
+        pass
+        # d_states = self.states.copy()
+        # d_input_symbols = self.input_symbols.copy()
+        # d_initial_state = self.initial_state.copy()
+        # d_accept_states = []
 
-        # add states reachable by one step of non-deterministic transitions
-        # without epsilon
-        for state in self.states:
+        # # add states reachable by one step of non-deterministic transitions
+        # # without epsilon
+        # for state in self.states:
 
-            for symbol in self.input_symbols:
-                # sort is needed to avoid overlap between concatenated states
-                # with different order
-                transitioned_states = self.transition_function[(state, symbol)].sort()
+        #     for symbol in self.input_symbols:
+        #         # sort is needed to avoid overlap between concatenated states
+        #         # with different order
+        #         transitioned_states =
+        #         self.transition_function[(state, symbol)].sort()
 
-                new_state = ''
+        #         new_state = ''
 
-                for s in transitioned_states:
-                    new_state += s
+        #         for s in transitioned_states:
+        #             new_state += s
 
-                if new_state not in d_states:
-                    d_states.append(new_state)
+        #         if new_state not in d_states:
+        #             d_states.append(new_state)
 
-        # try transitioning on the new states
+        # # try transitioning on the new states
