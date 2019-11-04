@@ -10,6 +10,7 @@ structure_letters = ['D', 'E', 'N', 'R']
 loaded_structures = []
 command_list = ['b', 'c', 'h', 'l', 'q']
 
+
 def print_help():
     print("""
             Commands:
@@ -20,6 +21,7 @@ def print_help():
             q - exit
         """)
 
+
 def create_new():
     structure_type = ''
 
@@ -29,7 +31,7 @@ def create_new():
         if structure_type == 'q':
             return
 
-        if not structure_type in structure_letters:
+        if structure_type not in structure_letters:
             print('Invalid structure selected... ')
         else:
             break
@@ -37,7 +39,7 @@ def create_new():
     # ToDo
     # check for consistency issues (e.g. function contains a state not in
     # states
-    # 
+    #
     # discover how to convert the transition function to required format
     if structure_type == 'D':
         print('Creating Deterministic Finite Automaton')
@@ -49,7 +51,7 @@ def create_new():
         accept_states = input('Insert the accept states: ').split('')
 
         d = dfa.DFA(states, input_symbols, transition_function,
-                        initial_state, accept_states)
+                    initial_state, accept_states)
 
         print(d)
         loaded_structures.append(d)
@@ -66,7 +68,7 @@ def create_new():
         loaded_structures.append(r)
         return r
 
-    elif strucuture_type == 'G':
+    elif structure_type == 'G':
         print('Creating Regular Grammar')
 
         nonterminals = input('Insert the nonterminal symbols: ').split('')
@@ -82,7 +84,7 @@ def create_new():
 
     elif structure_type == 'N':
         print('Creating Nondeterministic Finite Automaton')
-        
+
         states = input('Insert the states: ').split('')
         input_symbols = input('Insert the input symbols: ').split('')
         transition_function = input('Insert the transition function: ')
@@ -90,11 +92,12 @@ def create_new():
         accept_states = input('Insert the accept states: ').split('')
 
         n = nfa.NFA(states, input_symbols, transition_function,
-                        initial_state, accept_states)
+                    initial_state, accept_states)
 
         print(n)
         loaded_structures.append(n)
         return n
+
 
 # ToDo insert this into a buffer of currently loaded structures
 def load_structure():
@@ -107,13 +110,14 @@ def load_structure():
 
         if file_name == 'q':
             break
-        
+
         try:
             loaded_structures.append(
                 serializer_instance.deserialize(file_name)
             )
-        except OSError: 
+        except OSError:
             print('Error: could not open file.')
+
 
 def main():
     logging.basicConfig(level=logging.DEBUG)
@@ -139,6 +143,7 @@ def main():
         elif command == 'q':
             print('Exiting project...')
             exit()
+
 
 if __name__ == '__main__':
     main()

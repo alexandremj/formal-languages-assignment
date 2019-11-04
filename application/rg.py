@@ -7,12 +7,13 @@
       where A is in N and a is in Sigma
     - S in N is the start symbol"""
 
+
 class RG():
     def __init__(self,
-                nonterminals : set,
-                terminals : set,
-                productions,
-                start_symbol : str):
+                 nonterminals: set,
+                 terminals: set,
+                 productions,
+                 start_symbol: str):
         self.nonterminals = nonterminals
         self.terminals = terminals
         self.productions = productions
@@ -25,7 +26,7 @@ class RG():
                 f'Productions: {self.productions}, '
                 f'start_symbol: {self.start_symbol} '
                 )
-    
+
     # TODO
     def convert_to_nfa(self):
         pass

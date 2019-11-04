@@ -4,6 +4,7 @@
 import logging
 import pickle
 
+
 class Serializer():
 
     def __init__(self):
@@ -21,10 +22,10 @@ class Serializer():
     def serialize(self, obj, file_prefix: str):
         with open(file_prefix+'.pkl', 'wb') as output:
             pickle.dump(obj, output, pickle.HIGHEST_PROTOCOL)
-            # logger.info(f'{obj} stored at {file_prefix+".pkl"}') 
+            # logger.info(f'{obj} stored at {file_prefix+".pkl"}')
 
     """ Loads an object from a file
-    
+
         Arguments:
         file_prefix -- file containing the object to be unserialized
 

@@ -7,18 +7,18 @@
       where A is in N and a is in Sigma
     - S in N is the start symbol"""
 
+
 class CFG():
 
     def __init__(self,
-                nonterminals: set,
-                terminals: set,
-                productions, 
-                start_symbol: str):
+                 nonterminals: set,
+                 terminals: set,
+                 productions,
+                 start_symbol: str):
         self.nonterminals = nonterminals
         self.terminals = terminals
         self.productions = productions
         self.start_symbol = start_symbol
-
 
     def __str__(self):
         return (f'Context-Free Grammar - '
@@ -43,7 +43,7 @@ class CFG():
         # A -> a, or whose body length is equal or greater to 2
 
         # ToDo implement algorithm
-        
+
         # Part 1 - for each terminal symbol on the body of a production of
         # length >= 2, create a new nonterminal A whose only production is
         # A -> a
@@ -81,7 +81,7 @@ class CFG():
         self.terminals = intersection(terminals, rs)
 
         # ToDo implement productions
-        # self.productions = 
+        # self.productions =
         # P' = {p | p E P and all symbols of p are in rs}
 
     def remove_unproductive_symbols(self):
@@ -98,4 +98,3 @@ class CFG():
 
     def remove_recursions(self):
         pass
-
