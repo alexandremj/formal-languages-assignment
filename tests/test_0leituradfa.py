@@ -1,4 +1,3 @@
-from application.dfa import DFA
 from application.regex import RE
 from application.rg import RG
 from application.serializer import Serializer
@@ -16,6 +15,8 @@ logging.basicConfig(
 logger = logging.getLogger()
 
 """Test recording Deterministic Finite Automata using the Serializer class"""
+
+
 def test_recording_dfa(dfa_creation):
 
     s = Serializer()
@@ -32,7 +33,10 @@ def test_recording_dfa(dfa_creation):
     # cleanup after tests
     os.remove('test_dfa.pkl')
 
+
 """Test recording Regular Expressions using the Serializer class"""
+
+
 def test_recording_re():
     re = RE('1(10)*')
 
@@ -46,7 +50,10 @@ def test_recording_re():
     # cleanup after tests
     os.remove('test_re.pkl')
 
+
 """Test recording Regular Grammars using the Serializer class"""
+
+
 def test_recording_rg():
     nonterminals = ['S', 'A', 'B']
     terminals = ['a', 'b']
@@ -68,17 +75,26 @@ def test_recording_rg():
     # cleanup after tests
     os.remove('test_rg.pkl')
 
+
 """Tests the edition modes of the DFA class"""
+
+
 def test_editing_dfa():
     # TODO implement
     pass
 
+
 """Tests the edition modes of the RG class"""
+
+
 def test_editing_rg():
     # TODO implement
     pass
 
+
 """Tests the edition modes of the RE class"""
+
+
 def test_editing_re():
     re = RE('1(10)*')
 
